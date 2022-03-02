@@ -1,0 +1,201 @@
+/*
+COLORS:
+
+Light green: #7ed56f
+Medium green: #55c57a
+Dark green: #28b485
+
+*/
+/*
+COLORS:
+
+Light indigo: #91a7ff
+Medium indigo: #748ffc
+Dark indigo: #5c7cfa
+
+*/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  font-size: 60px;
+  line-height: 1.7;
+  color: #777;
+  padding: 30px;
+}
+
+.header {
+  height: 95vh;
+  background-image: linear-gradient(to right bottom, #8ea4fdbe, #5c7cfa94),
+    url(../img/hero.jpg);
+  background-size: cover;
+  background-position: top;
+  /* clip-path: polygon(x y, x y, x y x y); */
+  clip-path: polygon(0 0, 100% 0, 100% 85vh, 0 100%);
+  position: relative;
+}
+/* top, left, right, bottom properties starts counting from parent elements
+with position set to relative */
+
+.logo-box {
+  position: absolute;
+  top: 40px;
+  left: 40px;
+}
+
+.logo {
+  height: 35px;
+}
+
+.text-box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  /* The transform property below shifts the element - 50 percent to the left and then -50 percent
+  to the top to make sure the element is completly centered */
+  transform: translate(-50%, -50%);
+  text-align: center;
+  /* text-align property works on inline elements */
+}
+
+.heading-primary {
+  color: #fff;
+  text-transform: uppercase;
+  backface-visibility: hidden;
+  margin-bottom: 60px;
+  /* Backface visibility determines if the back part of a transforming element is visible to
+  the user or not  */
+}
+
+.heading-primary-main {
+  display: block;
+  font-size: 60px;
+  font-weight: 400;
+  letter-spacing: 35px;
+  animation-name: moveInLeft;
+  animation-duration: 3s;
+  /* animation-delay: 2s; 
+  animation-iteration-count: 2;
+  */
+  animation-timing-function: ease-out;
+}
+
+.heading-primary-sub {
+  display: block;
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: 17.4px;
+  animation: moveInRight 3s ease-out;
+}
+
+@keyframes moveInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+
+  50% {
+    opacity: 0.5;
+
+    transform: translateX(50px) rotate(180deg);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(0);
+  }
+}
+
+@keyframes moveInRight {
+  0% {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+
+  50% {
+    opacity: 0.5;
+    transform: translateX(-50px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(0);
+  }
+}
+
+@keyframes moveInBottom {
+  0% {
+    opacity: 0;
+    transform: translateY(100px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(0);
+  }
+}
+
+.btn:link,
+.btn:visited {
+  font-size: 30px;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 15px 40px;
+  display: inline-block;
+  border-radius: 100px;
+  /* border-radius of very high values curves the edges the same just like this one here */
+  transition: all 0.2s;
+  position: relative;
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+  /* box-shadow: x y blue-size rgba(); x and y can be positive or negative values depending on
+  our desired direction*/
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+.btn:active {
+  transform: translate(-1px);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.btn-white {
+  background-color: #fff;
+  color: #777;
+  padding: 15px 40px;
+}
+
+/* The ::after sudo selector is like a child element in the btn element, you must set the content
+and display properties for it to work, it is relative to the btn element */
+.btn::after {
+  content: "";
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+  border-radius: 100px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  /* transitions are always set on the parent elements */
+  transition: all 0.4s;
+}
+.btn-white::after {
+  background-color: #fff;
+}
+
+/* scale the btn then make it invisible by using the opacity after the given transition time  */
+.btn:hover::after {
+  transform: scaleX(1.5) scaleY(1.7);
+  opacity: 0;
+}
+.btn-animated {
+  animation: moveInBottom 3s ease-out 0.75s;
+  /* setting the mode like this makes the element invisible till after the effect */
+  animation-fill-mode: backwards;
+}
