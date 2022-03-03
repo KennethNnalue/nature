@@ -14,19 +14,30 @@ Medium indigo: #748ffc
 Dark indigo: #5c7cfa
 
 */
-* {
+*,
+::after,
+::before {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  box-sizing: inherit;
+}
+
+/* Reset the document's root font size from default value of 16px to 10px to enable us easily use
+values for our properties, we set the root font size in percentages to allow the user to adjust the 
+root font size by changing the default sizes on their browser*/
+html {
+  /* font-size: 10px; */
+  font-size: 62.5%;
 }
 
 body {
   font-family: "Lato", sans-serif;
   font-weight: 400;
-  font-size: 60px;
+  /* font-size: 60px; */
   line-height: 1.7;
   color: #777;
-  padding: 30px;
+  padding: 3rem;
+  box-sizing: border-box;
 }
 
 .header {
@@ -42,17 +53,17 @@ body {
 /* top, left, right, bottom properties starts counting from parent elements
 with position set to relative */
 
-.logo-box {
+.header__logo-box {
   position: absolute;
-  top: 40px;
-  left: 40px;
+  top: 4rem;
+  left: 4rem;
 }
 
-.logo {
-  height: 35px;
+.header__logo {
+  height: 3.5rem;
 }
 
-.text-box {
+.header__text-box {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -67,16 +78,16 @@ with position set to relative */
   color: #fff;
   text-transform: uppercase;
   backface-visibility: hidden;
-  margin-bottom: 60px;
+  margin-bottom: 6rem;
   /* Backface visibility determines if the back part of a transforming element is visible to
   the user or not  */
 }
 
-.heading-primary-main {
+.heading-primary--main {
   display: block;
-  font-size: 60px;
+  font-size: 6rem;
   font-weight: 400;
-  letter-spacing: 35px;
+  letter-spacing: 3.5rem;
   animation-name: moveInLeft;
   animation-duration: 3s;
   /* animation-delay: 2s; 
@@ -85,24 +96,24 @@ with position set to relative */
   animation-timing-function: ease-out;
 }
 
-.heading-primary-sub {
+.heading-primary--sub {
   display: block;
-  font-size: 30px;
+  font-size: 3rem;
   font-weight: 700;
-  letter-spacing: 17.4px;
+  letter-spacing: 1.8rem;
   animation: moveInRight 3s ease-out;
 }
 
 @keyframes moveInLeft {
   0% {
     opacity: 0;
-    transform: translateX(-100px);
+    transform: translateX(-10rem);
   }
 
   50% {
     opacity: 0.5;
 
-    transform: translateX(50px) rotate(180deg);
+    transform: translateX(5rem) rotate(180deg);
   }
 
   100% {
@@ -114,12 +125,12 @@ with position set to relative */
 @keyframes moveInRight {
   0% {
     opacity: 0;
-    transform: translateX(100px);
+    transform: translateX(10rem);
   }
 
   50% {
     opacity: 0.5;
-    transform: translateX(-50px);
+    transform: translateX(-5rem);
   }
 
   100% {
@@ -131,7 +142,7 @@ with position set to relative */
 @keyframes moveInBottom {
   0% {
     opacity: 0;
-    transform: translateY(100px);
+    transform: translateY(10rem);
   }
 
   100% {
@@ -142,32 +153,32 @@ with position set to relative */
 
 .btn:link,
 .btn:visited {
-  font-size: 30px;
+  font-size: 1.6rem;
   text-transform: uppercase;
   text-decoration: none;
-  padding: 15px 40px;
+  padding: 1.5rem 4rem;
   display: inline-block;
-  border-radius: 100px;
+  border-radius: 10rem;
   /* border-radius of very high values curves the edges the same just like this one here */
   transition: all 0.2s;
   position: relative;
 }
 
 .btn:hover {
-  transform: translateY(-3px);
+  transform: translateY(-0.3rem);
   /* box-shadow: x y blue-size rgba(); x and y can be positive or negative values depending on
   our desired direction*/
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
 }
 .btn:active {
-  transform: translate(-1px);
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  transform: translate(-0.1rem);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
 }
 
-.btn-white {
+.btn--white {
   background-color: #fff;
   color: #777;
-  padding: 15px 40px;
+  padding: 1.5rem 4rem;
 }
 
 /* The ::after sudo selector is like a child element in the btn element, you must set the content
@@ -177,7 +188,7 @@ and display properties for it to work, it is relative to the btn element */
   display: inline-block;
   height: 100%;
   width: 100%;
-  border-radius: 100px;
+  border-radius: 10rem;
   position: absolute;
   top: 0;
   left: 0;
@@ -185,7 +196,7 @@ and display properties for it to work, it is relative to the btn element */
   /* transitions are always set on the parent elements */
   transition: all 0.4s;
 }
-.btn-white::after {
+.btn--white::after {
   background-color: #fff;
 }
 
@@ -194,7 +205,7 @@ and display properties for it to work, it is relative to the btn element */
   transform: scaleX(1.5) scaleY(1.7);
   opacity: 0;
 }
-.btn-animated {
+.btn--animated {
   animation: moveInBottom 3s ease-out 0.75s;
   /* setting the mode like this makes the element invisible till after the effect */
   animation-fill-mode: backwards;
