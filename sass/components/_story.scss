@@ -1,0 +1,92 @@
+.story {
+  width: 75%;
+  margin: 0 auto;
+  box-shadow: 0 3rem 6rem rgba($color-black, 0.15);
+  background-color: rgba($color-white, 0.6);
+  border-radius: 0.3rem;
+  padding: 6rem;
+  padding-left: 9rem; // to accomodate for the 3 rem we took for the transform in the __shape
+  transform: skewX(-12deg);
+
+  @include respond(tab-port) {
+    width: 100%;
+    padding: 4rem;
+    padding-left: 7rem;
+  }
+
+  @include respond(phone) {
+    transform: skewX(0);
+  }
+
+  &__shape {
+    width: 15rem;
+    height: 15rem;
+    position: relative;
+    float: left;
+    transform: translateX(-3rem) skewX(12deg);
+    overflow: hidden;
+    border-radius: 50%;
+
+    // WHen checking for support, we must include values for the properties we are checking
+    @supports (-webkit-clip-path: circle(50% at 50% 50%)) or
+      (clip-path: circle(50% at 50% 50%)) {
+      -webkit-clip-path: circle(50% at 50% 50%);
+      clip-path: circle(50% at 50% 50%);
+      -webkit-shape-outside: circle(50% at 50% 50%);
+      shape-outside: circle(
+        50% at 50% 50%
+      ); //circle(radius Xposition Yposition(50% means center of th axis) ) THE ELEMENT MUST BE
+      // FLOATED AND HAVE A DEFINED HEIGHT AND WIDTH FOR THIS  shape-outside TO WORK
+      border-radius: none;
+    }
+
+    @include respond(phone) {
+      transform: translateX(-3rem) skewX(0);
+    }
+  }
+
+  &__img {
+    height: 100%;
+    transform: translateX(-4rem) scale(1.4); // takes the img back in X direction to canter it
+
+    transition: all 0.5s;
+  }
+
+  &__text {
+    transform: skewX(12deg);
+
+    @include respond(phone) {
+      transform: skewX(0);
+    }
+  }
+  &__caption {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(
+      -50%,
+      20%
+    ); // center it on X axis and put it down below on Y-axis
+    color: $color-white;
+    font-size: 1.7rem;
+    text-transform: uppercase;
+    text-align: center;
+    opacity: 0;
+    transition: all 0.5s;
+    backface-visibility: hidden;
+  }
+
+  &:hover &__caption {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+
+  &:hover &__img {
+    transform: translateX(-4rem) scale(1);
+    filter: blur(0.4rem) brightness(75%);
+  }
+}
+
+//It is not adviceable to use margin and padding for spacing in a floated element, it's best
+// to use Transform: translateX(-3rem) to shift the element backwards in X direction thereby
+// creating more space rightwards or  translateX(3rem) to move right and create space left

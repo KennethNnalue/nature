@@ -1,0 +1,105 @@
+.btn {
+  &, // to select all button elements and not just links and visited links
+  &:link,
+  &:visited {
+    font-size: 1.6rem;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 1.5rem 4rem;
+    display: inline-block;
+    border-radius: 10rem;
+    /* border-radius of very high values curves the edges the same just like this one here */
+    transition: all 0.2s;
+    position: relative;
+
+    // Change for the button element
+    border: none;
+    cursor: pointer;
+  }
+
+  &:hover {
+    transform: translateY(-0.3rem);
+    /* box-shadow: x y blue-size rgba(); x and y can be positive or negative values depending on
+    our desired direction*/
+    box-shadow: 0 1rem 2rem rgba($color-black, 0.2);
+
+    /* scale the btn then make it invisible by using the opacity after the given transition time  */
+    &::after {
+      transform: scaleX(1.5) scaleY(1.7);
+      opacity: 0;
+    }
+  }
+  &:active,
+  &:focus {
+    transform: translate(-0.1rem);
+    box-shadow: 0 0.5rem 1rem rgba($color-black, 0.2);
+  }
+
+  &--white {
+    background-color: $color-white;
+    color: $color-gray-dark;
+    padding: 1.5rem 4rem;
+
+    &::after {
+      background-color: $color-white;
+    }
+  }
+
+  &--blue {
+    background-color: $color-primary;
+    color: $color-white;
+    padding: 1.5rem 4rem;
+
+    &::after {
+      background-color: $color-primary;
+    }
+  }
+
+  /* The ::after sudo selector is like a child element in the btn element, you must set the content
+    and display properties for it to work, it is relative to the btn element */
+  &::after {
+    content: "";
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+    border-radius: 10rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    /* transitions are always set on the parent elements */
+    transition: all 0.4s;
+  }
+
+  &--animated {
+    animation: moveInBottom 3s ease-out 0.75s;
+    /* setting the mode like this makes the element invisible till after the effect */
+    animation-fill-mode: backwards;
+  }
+}
+
+.btn-text {
+  &:link,
+  &:visited {
+    font-size: $default-font-size;
+    color: $color-primary;
+    display: inline-block;
+    text-decoration: none;
+    border-bottom: 0.1rem solid $color-primary;
+    padding: 0.5rem 1rem;
+
+    transition: all 0.2s;
+  }
+  &:hover {
+    border-radius: 0.3rem;
+    background-color: $color-primary;
+    color: $color-white;
+    box-shadow: $default-box-shadow;
+    transform: translateY(0.2rem); // move it up a little
+  }
+
+  &:active {
+    box-shadow: 0 1rem 1rem rgba($color-black, 0.15);
+    transform: translateY(0); // to move it back to innitial position
+  }
+}

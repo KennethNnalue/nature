@@ -1,0 +1,187 @@
+// transform-origin is a css property used to set the origin of tranformation, it can be the right
+// or left. it's like defining the point to start the tranformation. if not set it starts from center
+
+.navigation {
+  &__checkbox {
+    display: none;
+    transition: all 0.2s;
+  }
+
+  &__button {
+    height: 7rem;
+    width: 7rem;
+    background-color: $color-white;
+    position: fixed;
+    top: 6rem;
+    right: 6rem;
+    border-radius: 50%;
+    box-shadow: 0 1rem 3rem rgba($color-black, 0.1);
+    z-index: 30;
+    text-align: center;
+    cursor: pointer;
+
+    @include respond(tab-port) {
+      top: 4rem;
+      right: 4rem;
+    }
+
+    @include respond(phone) {
+      top: 3rem;
+      right: 3rem;
+    }
+  }
+
+  &__background {
+    height: 6rem;
+    width: 6rem;
+    border-radius: 50%;
+    position: fixed;
+    top: 6.5rem;
+    right: 6.5rem;
+    background-image: radial-gradient(
+      $color-primary-light,
+      $color-primary-dark
+    );
+    z-index: 10; //works only on elements with their position defined
+    //transform: scale(70);
+    transition: transform 0.8s cubic-bezier(0.83, 0, 0.17, 1); // to animate the scaling of the background
+
+    @include respond(tab-port) {
+      top: 4.5rem;
+      right: 4.5rem;
+    }
+
+    @include respond(phone) {
+      top: 3.5rem;
+      right: 3.5rem;
+    }
+  }
+
+  &__nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 20;
+
+    width: 0; // to make it invisiblein our page
+    opacity: 0;
+
+    transition: opacity 0.8s cubic-bezier(0.68, -0.6, 0.32, 1.6); // to animate the opacity
+  }
+
+  &__list {
+    @include absoluteCenter;
+    list-style: none;
+    text-align: center;
+    width: 100%;
+  }
+
+  &__item {
+    margin: 1rem;
+  }
+
+  &__link {
+    &:link,
+    &:visited {
+      display: inline-block;
+      font-size: 3rem;
+      font-weight: 300;
+      padding: 1rem 2rem;
+      color: $color-white;
+      text-decoration: none;
+      text-transform: uppercase;
+      background-image: linear-gradient(
+        120deg,
+        transparent 0%,
+        transparent 50%,
+        $color-white 50%
+      ); // to create the straight line division effect on our color gradient
+      background-size: 220%; // shifts the white part of the backround image to be invisible
+      transition: all 0.8s;
+    }
+
+    &-number {
+      margin-right: 1.5rem;
+      display: inline-block;
+    }
+
+    &:hover,
+    &:active {
+      background-position: 100%; // to cover the text background with the white gradient
+      color: $color-primary;
+      transform: translateX(1rem);
+    }
+  }
+
+  //FUNCTIONALITY
+  //the selector below is, when the __checkbox is checked, select all siblings with class __background
+  &__checkbox:checked ~ &__background {
+    transform: scale(80);
+  }
+
+  &__checkbox:checked ~ &__nav {
+    width: 100%;
+    height: 100vh;
+    opacity: 1;
+  }
+
+  //   ICON
+
+  // we two sudo elements before and after the icon element to make the three icon lines
+
+  &__icon {
+    position: relative;
+    margin-top: 3.5rem;
+    &,
+    &::before,
+    &::after {
+      width: 3rem;
+      height: 2px;
+      background-color: $color-gray-dark-3;
+      display: inline-block;
+    }
+
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      transition: all 0.2s;
+    }
+
+    &::before {
+      top: -0.9rem;
+    }
+    &::after {
+      top: 0.9rem;
+    }
+  }
+
+  //select the icon when we hover on the button and change their position of the ::before and ::after
+  // psudo element to give more space bewtween the main middle element
+  &__button:hover &__icon::before {
+    top: -1.1rem;
+  }
+
+  &__button:hover &__icon::after {
+    top: 1.1rem;
+  }
+
+  //when the__checkbox is checked, select direct sibling __button, then select __button child __icon
+  // because the psudo elements depends on this icon, we can't change the size, we simply change
+  // the background-color:  to transparent
+
+  &__checkbox:checked + &__button &__icon {
+    background-color: transparent;
+  }
+
+  &__checkbox:checked + &__button &__icon::before {
+    top: 0;
+    transform: rotate(135deg);
+  }
+
+  &__checkbox:checked + &__button &__icon::after {
+    top: 0;
+    transform: rotate(-135deg);
+  }
+}

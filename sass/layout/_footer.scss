@@ -1,0 +1,83 @@
+.footer {
+  background-color: $color-gray-dark-3;
+  padding: 10rem 0;
+  font-size: $font-size-1-5;
+  color: $color-gray-light-1;
+
+  @include respond(tab-port) {
+    padding: 8rem 0;
+  }
+
+  &__logo-box {
+    // inline elements behaves just like text, img is an inline element and we can use
+    // text-align property on it.
+
+    text-align: center;
+    margin-bottom: 8rem;
+
+    @include respond(tab-port) {
+      margin-bottom: 6rem;
+    }
+
+    .footer__logo {
+      width: 15rem;
+      height: auto;
+    }
+  }
+
+  &__navigation {
+    display: inline-block; // to make the border line allign with the text
+    border-top: 0.1rem solid $color-gray-dark;
+    padding-top: 5rem;
+
+    @include respond(tab-port) {
+      width: 100%;
+      text-align: center;
+    }
+
+    .footer__list {
+      list-style: none;
+
+      .footer__item {
+        display: inline-block; // padding and margin only applies to block or inline-block elems
+        &:not(:last-child) {
+          margin-right: 1.5rem;
+        }
+
+        .footer__link {
+          &:link,
+          &:visited {
+            color: $color-gray-light-1;
+            text-decoration: none;
+            text-transform: uppercase;
+            display: inline-block;
+            background-color: $color-gray-dark-3;
+            transition: all 0.2s;
+          }
+
+          &:hover,
+          &:active {
+            color: $color-primary-light;
+            box-shadow: 0 1rem 2rem rgba($color-black, 0.4);
+            transform: rotate(2deg) scale(1.3);
+          }
+        }
+      }
+    }
+  }
+
+  &__copyright {
+    display: inline-block;
+    border-top: 0.1rem solid $color-gray-dark;
+    padding-top: 5rem;
+    font-size: 1.8rem;
+    float: right;
+    width: 80%;
+
+    @include respond(tab-port) {
+      width: 100%;
+      text-align: center;
+      float: none;
+    }
+  }
+}

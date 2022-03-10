@@ -1,0 +1,242 @@
+// When elements are positioned absolute or floated, it takes them out of the natural flow of the
+// document thereby making there parent container to collaps because and have no height anymore
+// except we have manually assined them a height. we use clearfix to fix this in floats but
+// in position absolute, we simply assign the same height to the element and parent
+
+.card {
+  //FUNCTIONALITY
+  perspective: 150rem; //adds the 3d effects on the child element
+  position: relative; // to enable absolute position on the child
+  height: 52rem; // take the same height as the child because of the absolute poition of the child
+
+  &__side {
+    position: absolute; // puts the sides on top of each other
+    top: 0;
+    left: 0;
+    width: 100%; // take full width of the container
+    backface-visibility: hidden; // hide the back side of a transformed element
+    border-radius: 0.3rem;
+    overflow: hidden; // hides the images that overflows the container
+    box-shadow: $default-box-shadow;
+    height: 52rem;
+    transition: all 0.8s ease;
+
+    &--front {
+      background-color: $color-white;
+    }
+
+    &--back {
+      transform: rotateY(-180deg); // rotate the card in the opposite direction
+
+      &-1 {
+        background-image: linear-gradient(
+          to right bottom,
+          $color-secondary-light,
+          $color-secondary-dark
+        );
+      }
+
+      &-2 {
+        background-image: linear-gradient(
+          to right bottom,
+          $color-primary-light,
+          $color-primary-dark
+        );
+      }
+
+      &-3 {
+        background-image: linear-gradient(
+          to right bottom,
+          $color-tertiary-light,
+          $color-tertiary-dark
+        );
+      }
+    }
+  }
+
+  &:hover &__side--front {
+    transform: rotateY(180deg);
+  }
+
+  &:hover &__side--back {
+    transform: rotateY(0);
+  }
+
+  // FRONT SIDE STYLING
+
+  &__picture {
+    background-size: cover;
+    width: 100%;
+    height: 23rem;
+    background-blend-mode: screen;
+    clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+    // the clip-path property here removes the overflow property on the parent , we manually
+    // have to set the border radius for the top conners
+
+    border-top-right-radius: 0.3rem;
+    border-top-left-radius: 0.3rem;
+
+    &--1 {
+      background-image: linear-gradient(
+          to right bottom,
+          $color-secondary-light,
+          $color-secondary-dark
+        ),
+        url(../img/nat-5.jpg);
+    }
+
+    &--2 {
+      background-image: linear-gradient(
+          to right bottom,
+          $color-primary-light,
+          $color-primary-dark
+        ),
+        url(../img/nat-6.jpg);
+    }
+
+    &--3 {
+      background-image: linear-gradient(
+          to right bottom,
+          $color-tertiary-light,
+          $color-tertiary-dark
+        ),
+        url(../img/nat-7.jpg);
+    }
+  }
+
+  &__heading {
+    font-size: 2.8rem;
+    font-weight: 300;
+    text-transform: uppercase;
+    text-align: right;
+    color: $color-white;
+    position: absolute;
+    top: 12rem;
+    right: 2rem;
+    width: 75%;
+  }
+  &__heading-span {
+    padding: 1rem 1.5rem;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone; // treat each box individually as applying padding and magin
+    &--1 {
+      background-image: linear-gradient(
+        to right bottom,
+        rgba($color-secondary-light, 0.85),
+        rgba($color-secondary-dark, 0.85)
+      );
+    }
+    &--2 {
+      background-image: linear-gradient(
+        to right bottom,
+        rgba($color-primary-light, 0.85),
+        rgba($color-primary-dark, 0.85)
+      );
+    }
+    &--3 {
+      background-image: linear-gradient(
+        to right bottom,
+        rgba($color-tertiary-light, 0.85),
+        rgba($color-tertiary-dark, 0.85)
+      );
+    }
+  }
+
+  &__details {
+    padding: 3rem;
+    ul {
+      list-style: none;
+      width: 80%;
+      margin: 0 auto;
+
+      li {
+        text-align: center;
+        font-size: 1.5rem;
+        padding: 1rem;
+
+        &:not(:last-child) {
+          border-bottom: 1px solid $color-gray-light-2;
+        }
+      }
+    }
+  }
+
+  // BACK SIDE STYLING
+
+  &__cta {
+    // center any box or element
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    text-align: center;
+  }
+  &__price-box {
+    text-align: center;
+    color: $color-white;
+    margin-bottom: 8rem;
+  }
+  &__price-text {
+    font-size: $default-font-size;
+    text-transform: uppercase;
+  }
+  &__price-value {
+    font-size: 6rem;
+    font-weight: 200;
+  }
+
+  //MEDIA QUERY
+  /* 
+    We can't use the respond mixin here in this card because we want to test for different
+    conditions perculia to this card in our media query, we are also checking if the
+    screen can be hovered in case of tabs that may have large width in landscape mode
+  */
+  // @include respond(tab-port) {
+  @media only Screen and (max-width: 56.25em), only Screen and (hover: none) {
+    height: auto; // take the same height as the child because of the absolute poition of the child
+    background-color: $color-white;
+    border-radius: 0.3rem;
+    box-shadow: $default-box-shadow;
+    &__side {
+      position: relative; //we have just one side here
+      box-shadow: none;
+      height: auto;
+
+      &--back {
+        transform: rotateY(0);
+        clip-path: polygon(0 15%, 100% 0, 100% 100%, 0 100%);
+      }
+    }
+
+    &:hover &__side--front {
+      transform: rotateY(0);
+    }
+
+    &__details {
+      padding: 1rem 3rem;
+    }
+
+    // FRONT SIDE STYLING
+
+    // BACK SIDE STYLING
+
+    &__cta {
+      // center any box or element
+      position: relative;
+      top: 0;
+      left: 0;
+      transform: translate(0);
+      width: 100%;
+      text-align: center;
+      padding: 7rem 4rem 4rem 4rem;
+    }
+    &__price-box {
+      margin-bottom: 3rem;
+    }
+
+    &__price-value {
+      font-size: 4rem;
+    }
+  }
+}
